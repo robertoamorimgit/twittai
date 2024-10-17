@@ -1,0 +1,48 @@
+version: '3.7'
+
+services:
+  coletor:
+    build:
+      context: ./coletor
+      dockerfile: Dockerfile
+    volumes:
+      - ./coletor:/app
+      - ./dados:/app/dados
+    depends_on:
+      - processador
+    entrypoint: ["python", "coleta.py"]
+
+  processador:
+    build:
+      context: ./processador
+      dockerfile: Dockerfile
+    volumes:
+      - ./processador:/app
+      - ./dados:/app/dados
+    entrypoint: ["python", "processamento.py"]
+
+  main:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/app
+      - ./dados:/app/dados
+    depends_on:
+      - coletor
+      - processador
+    entrypoint: ["python", "main.py"]
+
+  prometheus:
+    image: prom/prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus:/etc/prometheus/
+  
+  grafana:
+    image: grafana/grafana
+    ports:
+      - "3000:3000"
+    depends_on:
+      - prometheus

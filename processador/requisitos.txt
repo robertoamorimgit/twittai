@@ -1,0 +1,5 @@
+# Lista de dependências do projeto
+requests
+
+# Para instalar as dependências, use o seguinte comando:
+# pip install -r requisitos.txt
