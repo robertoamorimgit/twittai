@@ -1,12 +1,11 @@
-from .beautifulsoup_scrapy import coletar_braziljournal, coletar_revistaoeste
+from .beautifulsoup_scrapy import coletar_todas_as_noticias
+
+def salvar_noticias(noticias):
+    with open('/app/dados/noticias_coletadas.txt', 'a') as file:
+        for noticia in noticias:
+            file.write(f"{noticia['title']}\n")
 
 def coletar_noticias():
-    noticias = []
-    
-    # Coletar do Brazil Journal
-    noticias += coletar_braziljournal()
-    
-    # Coletar da Revista Oeste
-    noticias += coletar_revistaoeste()
-    
+    noticias = coletar_todas_as_noticias()
+    salvar_noticias(noticias)
     return noticias

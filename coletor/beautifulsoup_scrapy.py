@@ -26,3 +26,9 @@ def coletar_revistaoeste():
         noticias.append({'title': title, 'source': 'Revista Oeste'})
     
     return noticias
+
+def coletar_todas_as_noticias():
+    noticias = []
+    noticias += coletar_braziljournal()
+    noticias += coletar_revistaoeste()
+    return noticias

@@ -1,7 +1,5 @@
 # Lista de dependências do projeto
 requests
-beautifulsoup4
-prometheus_client
 
 # Para instalar as dependências, use o seguinte comando:
 # pip install -r requisitos.txt

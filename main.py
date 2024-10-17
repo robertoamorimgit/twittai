@@ -1,15 +1,17 @@
-from coletor.coleta import coletar_noticias
-from processador.processamento import filtrar_noticias
+from coletor.beautifulsoup_scrapy import coletar_todas_as_noticias
+from processador.processamento import filtrar_noticias, processar_noticias
 
 def main():
-    novas_noticias = coletar_noticias()
+    novas_noticias = coletar_todas_as_noticias()
     noticias_filtradas = filtrar_noticias(novas_noticias)
+    noticias_processadas = processar_noticias(noticias_filtradas)
 
-    for noticia in noticias_filtradas:
-        print(f"Fonte: {noticia['source']}, Título: {noticia['title']}")
+    salvar_noticias(noticias_processadas)
+
+def salvar_noticias(noticias):
+    with open('/app/dados/noticias_processadas.txt', 'a') as file:
+        for noticia in noticias:
+            file.write(f"{noticia['title']}\n")
 
 if __name__ == '__main__':
     main()
-
-
-'''rodar assim : python main.py'''
